@@ -28,10 +28,14 @@ export default function ProductPage() {
 
 	return (
 		<section className={styles.container}>
-			<Link href='/' className={styles.back}>
-				<Image src={backIcon} alt='Go back' width={25} height={25} />
-			</Link>
-			<p className={styles.breadcrumbs}>Home / Products / {product.name}</p>
+			<ViewTransition name={`product-breadcrumbs-${product.id}`}>
+				<div className={styles.breadcrumbs}>
+					<Link href='/' className={styles.back}>
+						<Image src={backIcon} alt='Go back' width={25} height={25} />
+					</Link>
+					<span>Home / Products / {product.name}</span>
+				</div>
+			</ViewTransition>
 			<div className={styles.productDetails}>
 				<ViewTransition name={`product-image-${product.id}`}>
 					<div className={styles.image}>
@@ -51,16 +55,20 @@ export default function ProductPage() {
 						<ViewTransition name={`product-price-${product.id}`}>
 							<span className={styles.priceNumber}>${product.price}</span>
 						</ViewTransition>
-						<span className={styles.priceInfo}>* This is a fictional price</span>
-						<button className={styles.addToCart}>Add to cart</button>
+						<ViewTransition name={`product-page-price-buttom-${product.id}`}>
+							<span className={styles.priceInfo}>* This is a fictional price</span>
+							<button className={styles.addToCart}>Add to cart</button>
+						</ViewTransition>
 					</div>
 				</div>
 			</div>
-			<p className={styles.description}>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec metus diam, vulputate vel elementum a, condimentum a ligula. Quisque accumsan nec
-				diam sit amet scelerisque. Cras erat eros, ullamcorper a porttitor ut, commodo at libero. Fusce consequat ut nisl vel molestie. Aenean interdum
-				facilisis pharetra.
-			</p>
+			<ViewTransition name={`product-page-description-${product.id}`}>
+				<p className={styles.description}>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec metus diam, vulputate vel elementum a, condimentum a ligula. Quisque accumsan
+					nec diam sit amet scelerisque. Cras erat eros, ullamcorper a porttitor ut, commodo at libero. Fusce consequat ut nisl vel molestie. Aenean
+					interdum facilisis pharetra.
+				</p>
+			</ViewTransition>
 			<div className={styles.products}>
 				{data
 					.filter(item => item.id !== Number(id))
